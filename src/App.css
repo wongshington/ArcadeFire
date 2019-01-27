@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+  justify-content: center;
+}
+
+.grid{
+  display: grid;
+}
+.flex{
+  display: flex;
+}
+.none{
+  display: none;
+}

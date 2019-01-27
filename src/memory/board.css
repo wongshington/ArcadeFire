@@ -1,0 +1,13 @@
+
+.board{
+  background: lightgoldenrodyellow;
+}
+.row{
+  justify-content: center;
+}
+.tile{
+  border: 1px dashed;
+  height: 150px;
+  width: 150px;
+  margin: 15px;
+}
