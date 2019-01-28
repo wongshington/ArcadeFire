@@ -1,0 +1,15 @@
+.tetris-grid{
+  background: blue;
+  height: 540px;
+  width: 270px;
+  grid-template-columns: repeat(10, 1fr);
+  padding: 5px;
+}
+.tet-tile{
+  height: 25px;
+  width: 25px;
+  border: 1px solid;
+}
+.red{
+  background-color: red;
+}

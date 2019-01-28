@@ -1,5 +1,7 @@
+
 const memoryReducer = (state = {}, action) => {
-  return {};
+
+  return {key: "string"};
 }
 
 export default memoryReducer;

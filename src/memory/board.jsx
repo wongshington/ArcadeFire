@@ -2,7 +2,7 @@ import React from 'react';
 import './board.css';
 
 import Row from "./row.jsx"
-import Tile from "./tile.jsx"
+import tiles from "./tiles"
 
 class Board extends React.Component{
   constructor(props){
@@ -14,7 +14,7 @@ class Board extends React.Component{
   buildBoard(){
     let board = [];
     for (let i = 0; i < this.state.boardHeight; i++) {
-      
+        
       board.push(<Row width={this.state.boardWidth}/>)
     }
       return ( 
