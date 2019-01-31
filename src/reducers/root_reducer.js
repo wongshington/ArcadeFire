@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import memory from './memory_reducer';
-import tetris from './tetris_reducer';
+import tetris from './tetris/tetris_reducer';
 
 
 const root = combineReducers({

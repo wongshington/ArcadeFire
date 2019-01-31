@@ -9,8 +9,7 @@ import configureStore from './store';
 
 
 const Root = ({store}) => {
-  store = configureStore();
-
+  store = configureStore(); //might need to be outside the Root
   return (
     <Provider store={store}>
       <App />
