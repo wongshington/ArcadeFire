@@ -98,7 +98,7 @@ const placePiece = function(board, piece){ //should return a new board
 
 placePiece(theBoard, piece1)
 
-function buildNewBoard(height, width){ // returns new board
+function buildFreshBoard(height, width){ // returns fresh new board
 
   let board = [];
   let row = [];
@@ -117,3 +117,18 @@ const lockBoard = function(board){
   //dispatches action to make new current piece
 }
 
+const clearLines = function(board){ // returns new board
+  const newBoard = deepDup(board);
+  let i = 0;
+  while (i < newBoard.length){
+    let row = newBoard[i];
+    if (row.every( el => el > 0)) {
+      newBoard.splice(i, 1) //removes this one row from the board;
+      const newRow = new Array(board[0].length).fill(0) //creates a new array where length == board's width and fills it with 0's
+      newBoard.unshift(newRow);
+      continue; // this way it doesn't increment the counter and skip a line in the board
+    }
+    i ++;
+  }
+  return newBoard;
+}
