@@ -23,7 +23,6 @@ class Board extends React.Component{
   }
   componentWillUnmount(){
     document.removeEventListener(this.state.listener);
-
   }
 
   handleKey(e) {

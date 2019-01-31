@@ -13,10 +13,6 @@
 //   return boardDup;
 // }
 
-const deepDup = function(item){
-  const newItem = JSON.parse(JSON.stringify(item)); //creates a JSON string first, then a new object from the string 
-  return newItem
-}
 
 // movePiece(theBoard, piece1, [1, 0])
 
@@ -62,12 +58,12 @@ const piece1 = {
   pos: [0, 4], // where it is currently? not sure if i need this
   current: true // only one will be true at a time
 }
+
 const deepDup = function (item) {
   const newItem = JSON.parse(JSON.stringify(item)); //creates a JSON string first, then a new object from the string 
   return newItem
 }
-const movePiece = function(piece, dir){
-  console.log(piece.pos)
+export const movePiece = function(piece, dir){ //returns new piece
   const newPiece = deepDup(piece);
   newPiece.pos[0] += dir[0];
   newPiece.pos[1] += dir[1];
@@ -77,7 +73,7 @@ const movePiece = function(piece, dir){
 
 // movePiece(piece1, [1,0]); //down one
 
-const rotatePiece = function (piece) { 
+export const rotatePiece = function (piece) { 
   let newPiece = deepDup(piece); //dup the piece
   newPiece.currShape = (piece.currShape + 1) % piece.shapes.length; //rotates the piece "forward"
   // really we're just designating a new shape for the piece that we can use later to build the piece;
@@ -86,7 +82,7 @@ const rotatePiece = function (piece) {
 
 // rotatePiece(piece1)
 
-const placePiece = function(board, piece){ //should return a new board
+export const placePiece = function(board, piece){ //should return a new board
   const newBoard = deepDup(board);
   const [x, y] = piece.pos //the coords for the current position of the piece
   piece.shapes[piece.currShape].forEach( el => { //iterate over the piece's current shape coords
@@ -96,7 +92,7 @@ const placePiece = function(board, piece){ //should return a new board
   return newBoard;
 }
 
-placePiece(theBoard, piece1)
+// placePiece(theBoard, piece1)
 
 function buildFreshBoard(height, width){ // returns fresh new board
 
@@ -113,11 +109,12 @@ function buildFreshBoard(height, width){ // returns fresh new board
   return board;
 }
 
-const lockBoard = function(board){ 
-  //dispatches action to make new current piece
+export const lockBoard = function(board){ 
+  // maybe should clear lines first
+  // then dispatch action to make new current piece
 }
 
-const clearLines = function(board){ // returns new board
+export const clearLines = function(board){ // returns new board
   const newBoard = deepDup(board);
   let i = 0;
   while (i < newBoard.length){
@@ -131,4 +128,14 @@ const clearLines = function(board){ // returns new board
     i ++;
   }
   return newBoard;
+};
+
+export const clearPiece = function(board, piece){ //returns new board
+  let newBoard = deepDup(board);
+  const [x, y] = piece.pos //the coords for the current position of the piece
+  piece.shapes[piece.currShape].forEach(el => { //iterate over the piece's current shape coords
+    let [x2, y2] = [el[0] + x, el[1] + y]
+    newBoard[x2][y2] = 0; //resets the place where the piece used to be
+  })
+  return newBoard; 
 }

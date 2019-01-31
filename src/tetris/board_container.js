@@ -1,17 +1,17 @@
 import {connect} from 'react-redux'
 
 import Board from "./board";
-import { keydown } from '../actions/tetris_actions';
+import { pieceMover } from '../actions/tetris_actions';
 
-const mSP = state => {
-  debugger
+const mSP = ({tetris: {board, piece}}) => {
   return ({
-  board: state.tetris.board
+  board,
+  piece
 });
 }
 
 const mDP = dispatch => ({
-  keydown: () => dispatch(keydown)
+  pieceMover: (board, piece, dir) => pieceMover(board, piece, dir)
 })
 
 export default connect(mSP, mDP)(Board);

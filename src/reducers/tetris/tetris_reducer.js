@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import piece from 'piece_reducer.js';
-import board from 'board_reducer.js';
+import piece from './piece_reducer.js';
+import board from './board_reducer.js';
 
 const tetrisReducer = combineReducers({
   board, 
