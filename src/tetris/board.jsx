@@ -1,6 +1,8 @@
 import React from 'react';
 import './tetris.css'
 
+import {pieces} from './pieces';
+
 import { placePiece } from './boardFunctions';
 
 class Board extends React.Component{
@@ -27,7 +29,12 @@ class Board extends React.Component{
 
   buildGrid(){
     let grid = this.props.board.map( (el, i) => {
-      return el.map( (el, i) => <div className={`${el} tet-tile`}>{el}</div> )
+      return el.map( (el, i) => {
+        const color = el == 0 ? "white": pieces[el].color
+        return( 
+        <div className={`${color} tet-tile`}>{el}</div> 
+        )
+    })
     })
     return grid;
   }

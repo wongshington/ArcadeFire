@@ -1,18 +1,19 @@
 import { MOVE } from '../../actions/tetris_actions';
 
 const defaultState = {
-    type: 1,
-    color: "red",
-    topPos: [0, 4], //might just need one pos key
-    currShape: 0, //need to keep track of current shape?
-    shapes: [ //long piece
-      [[0, 0], [1, 0], [2, 0], [3, 0]],
-      [[0, 0], [0, 1], [0, 2], [0, 3]],
-    ],
-    pos: [0, 4], // where it is currently? not sure if i need this
-    current: true // only one will be true at a time
-  }
-
+  type: 3, // the L piece
+  color: "green",
+  topPos: [0, 4],
+  currShape: 0,
+  shapes: [
+    [[0, 0], [1, 0], [2, 0], [2, 1]],
+    [[1, 0], [1, 1], [1, 2], [0, 2]],
+    [[0, 0], [0, 1], [1, 1], [2, 1]],
+    [[2, 0], [1, 0], [1, 1], [1, 2]]
+  ],
+  pos: [0, 4],
+  current: true
+}
 
 const piece = (oldState = defaultState, action) => {
   // debugger

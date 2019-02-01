@@ -3,30 +3,19 @@
 //   piece.positions = newPos;
 // }
 
-// const movePiece = function (board, piece, dir) {
-//   let boardDup = board.boardDup(); //deep copy of the board will likely be abstracted out of this
-//   piece.positions.forEach( el => boardDup[el[0]][el[1]] = 0) // reset to zero?
-//   updatePiece(piece, dir); //changes piece.positions
-//   let type = piece.type;
-//   piece.positions.forEach( el => boardDup[el[0]][el[1]] = type) // 
-
-//   return boardDup;
-// }
-
-
-// movePiece(theBoard, piece1, [1, 0])
-
 // board will be stored in redux
 // current piece object will be stored in redux
 // dir has been sent to function from keydown
 // dir == [1,0] // move down one row
 
+import { pieces } from './pieces';
 
 
 const deepDup = function (item) {
   const newItem = JSON.parse(JSON.stringify(item)); //creates a JSON string first, then a new object from the string 
   return newItem
 }
+
 export const movePiece = function(piece, dir){ //returns new piece
   const newPiece = deepDup(piece);
   newPiece.pos[0] += dir[0];
@@ -35,16 +24,12 @@ export const movePiece = function(piece, dir){ //returns new piece
   return newPiece;
 }
 
-// movePiece(piece1, [1,0]); //down one
-
 export const rotatePiece = function (piece) { 
   let newPiece = deepDup(piece); //dup the piece
   newPiece.currShape = (piece.currShape + 1) % piece.shapes.length; //rotates the piece "forward"
   // really we're just designating a new shape for the piece that we can use later to build the piece;
   return newPiece;
 }
-
-// rotatePiece(piece1)
 
 export const placePiece = function(board, piece){ //should return a new board
   const newBoard = deepDup(board);
@@ -55,8 +40,6 @@ export const placePiece = function(board, piece){ //should return a new board
   })
   return newBoard;
 }
-
-// placePiece(theBoard, piece1)
 
 function buildFreshBoard(height, width){ // returns fresh new board
 
@@ -73,9 +56,32 @@ function buildFreshBoard(height, width){ // returns fresh new board
   return board;
 }
 
-export const lockBoard = function(board){ 
+export const atFloor = (board, piece) => {
+  
+  let bool = piecePositions(piece).some(pos => {
+    let [x, y] = pos;
+    return (board[x] == undefined || board[x][y] > 0) // if any of the next lower spaces is the floor
+  })
+  let arrs = piecePositions(piece);
+  return (
+  // can pass in the failed board attempt but old piece
+ bool
+)}
+
+  // just check if next move would be a lockedBoard, return bool
+
   // maybe should clear lines first
+
   // then dispatch action to make new current piece
+
+
+const piecePositions = function(piece){
+  let positions = piece.shapes[piece.currShape].map( coord => {
+      let x = coord[0] + piece.pos[0]
+      let y = coord[1] + piece.pos[1]
+      return [x,y]
+  })
+  return positions
 }
 
 export const clearLines = function(board){ // returns new board
@@ -118,6 +124,10 @@ export const validPos = function (board, piece) { //returns boolean
   return bool
 }
 
-const spawnPiece = function(board){ // returns new board?
-  //  will need to pick a random piece
+export const spawnPiece = function(){ // returns new piece
+  
+  let idx = Math.floor(Math.random() * 7 ) + 1 // pick random pieces[idx]
+  let newPiece = pieces[idx];
+  return newPiece;
 }
+

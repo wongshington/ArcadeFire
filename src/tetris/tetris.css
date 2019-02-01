@@ -10,9 +10,28 @@
   width: 25px;
   border: 1px solid;
 }
+
 .red{
   background-color: red;
 }
-.white{
+.blue{
+  background-color: blue;
+}
+.green{
+  background-color: green;
+}
+.yellow{
+  background-color: yellow;
+}
+.pink{
+  background-color: pink;
+}
+.orange{
+  background-color: orange;
+}
+.purple{
+  background-color: purple;
+}
+.white{ /* default color */
   background-color: lightblue;
 }

@@ -1,10 +1,9 @@
-import { movePiece, clearPiece, placePiece, validPos } from '../tetris/boardFunctions';
-
+import { movePiece, clearPiece, placePiece, validPos, spawnPiece, lockedBoard, atFloor } from '../tetris/boardFunctions';
 export const MOVE = "MOVE";
 
 const moveAction = (board, piece) => {
   return ({
-    type: MOVE,
+    type: MOVE, // should be update
     board,
     piece
   });
@@ -13,8 +12,15 @@ const moveAction = (board, piece) => {
 export const pieceMover = (board, piece, dir) => dispatch => {
   let newPiece = movePiece(piece, dir);
   let newBoard = clearPiece(board, piece); //because this func returns a new board
-  if ( !validPos(newBoard, newPiece) ){
-    return dispatch(moveAction(board, piece));
+  // debugger
+  if (atFloor(newBoard, newPiece)){
+    newPiece = spawnPiece();
+    newBoard = board
+    // lock it downs
+  } else if ( !validPos(newBoard, newPiece) ){
+    // debugger
+    newBoard = board;
+    newPiece = piece;
   }
   return dispatch(finalize(newBoard, newPiece));
 }
@@ -24,6 +30,10 @@ const finalize = (board, piece) => dispatch => { //will set the board and piece 
 
   return dispatch(moveAction(newBoard, piece));
 }
+
+
+// let newPiece = spawnPiece();
+
 
 // need some promises? :)
 // will make change to move piece and save in redux
