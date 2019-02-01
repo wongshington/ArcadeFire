@@ -23,42 +23,6 @@
 
 
 
-const theBoard = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
-];
-
-const piece1 = {
-  type: 1,
-  color: "red",
-  topPos: [0, 4], //might just need one pos key
-  currShape: 0, //need to keep track of current shape?
-  shapes: [ //long piece
-    [[0, 0], [0, 1], [0, 2], [0, 3]],
-    [[0, 0], [1, 0], [2, 0], [3, 0]]
-  ],
-  pos: [0, 4], // where it is currently? not sure if i need this
-  current: true // only one will be true at a time
-}
-
 const deepDup = function (item) {
   const newItem = JSON.parse(JSON.stringify(item)); //creates a JSON string first, then a new object from the string 
   return newItem
@@ -140,8 +104,20 @@ export const clearPiece = function(board, piece){ //returns new board
   return newBoard; 
 }
 
-const validPos = function(){ //returns boolean
-  // check for collisions
-  // and out of bounds
+export const validPos = function (board, piece) { //returns boolean
+  let height = board.length;
 
+  const [x, y] = piece.pos;
+  let bool = piece.shapes[piece.currShape].every(el => { //iterate over the piece's current shape coords
+    let [x2, y2] = [el[0] + x, el[1] + y];
+    if (x2 >= height || x2 < 0) {
+      return false
+    }
+    return (board[x2][y2] < 1);
+  })
+  return bool
+}
+
+const spawnPiece = function(board){ // returns new board?
+  //  will need to pick a random piece
 }

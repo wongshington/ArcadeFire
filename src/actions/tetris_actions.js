@@ -1,4 +1,4 @@
-import { movePiece, clearPiece, placePiece } from '../tetris/boardFunctions';
+import { movePiece, clearPiece, placePiece, validPos } from '../tetris/boardFunctions';
 
 export const MOVE = "MOVE";
 
@@ -13,13 +13,14 @@ const moveAction = (board, piece) => {
 export const pieceMover = (board, piece, dir) => dispatch => {
   let newPiece = movePiece(piece, dir);
   let newBoard = clearPiece(board, piece); //because this func returns a new board
-  newBoard = placePiece(newBoard, newPiece);
+  if ( !validPos(newBoard, newPiece) ){
+    return dispatch(moveAction(board, piece));
+  }
   return dispatch(finalize(newBoard, newPiece));
 }
 
 const finalize = (board, piece) => dispatch => { //will set the board and piece and send the updated versions to the reducers
   let newBoard = placePiece(board, piece);
-  // debugger
 
   return dispatch(moveAction(newBoard, piece));
 }
