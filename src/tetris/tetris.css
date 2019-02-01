@@ -1,5 +1,5 @@
 .tetris-grid{
-  background: blue;
+  background: lightblue;
   height: 540px;
   width: 270px;
   grid-template-columns: repeat(10, 1fr);

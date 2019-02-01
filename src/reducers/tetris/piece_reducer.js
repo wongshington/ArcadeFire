@@ -1,3 +1,4 @@
+import { MOVE } from '../../actions/tetris_actions';
 
 const defaultState = {
     type: 1,
@@ -14,11 +15,10 @@ const defaultState = {
 
 
 const piece = (oldState = defaultState, action) => {
-  switch (action.tye) {
-    case "up": // this will be replaced later
-
-      break;
-
+  // debugger
+  switch (action.type) {
+    case MOVE: // this will be replaced later
+      return action.piece
     default:
       return oldState;
   }

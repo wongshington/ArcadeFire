@@ -15,38 +15,36 @@ class Board extends React.Component{
   }
 
   componentDidMount() {
-    let newBoard = placePiece(this.state.board, this.state.piece);
+    // let newBoard = placePiece(this.state.board, this.state.piece);
     let listenerReference = document.addEventListener("keydown", this.handleKey)
-    this.setState({ listener: listenerReference, board: newBoard })
+    this.setState({ listener: listenerReference})
     window.setTimeout(() => console.log("time"), 3000)
   }
-
-
 
   componentWillUnmount() {
     document.removeEventListener(this.state.listener);
   }
 
   buildGrid(){
-    let grid = this.state.board.map( (el, i) => {
+    let grid = this.props.board.map( (el, i) => {
       return el.map( (el, i) => <div className={`${el} tet-tile`}>{el}</div> )
     })
     return grid;
   }
 
   handleKey(e) { // will go in the component
-    let board = this.state.board;
-    let piece = this.state.piece;
-    let newBoard = board;
+    let board = this.props.board;
+    let piece = this.props.piece; //should this be state or props?
+    // let newBoard = board;
     switch (e.keyCode) {
       case 37: //left
         console.log("left");
-        newBoard = this.props.pieceMover(board, piece, [0, -1])
+        this.props.pieceMover(board, piece, [0, -1])
         // make action to change position to the left
         break;
       case 39: // right
         console.log("right");
-        newBoard = this.props.pieceMover(board, piece, [0, 1])
+        this.props.pieceMover(board, piece, [0, 1])
         // make action to change position to the right
         break;
       case 38: // up
@@ -55,7 +53,7 @@ class Board extends React.Component{
         break;
       case 40: // down
         console.log("down");
-        newBoard = this.props.pieceMover(board, piece, [1, 0])
+        this.props.pieceMover(board, piece, [1, 0])
         // make action to change position down
         break;
       case 32:
@@ -70,12 +68,11 @@ class Board extends React.Component{
       default:
         break;
     }
-    this.setState({board: newBoard})
+    // this.setState({board: newBoard})
   }
 
   render(){
-    // console.groupCollapsed(this.props)
-    // debugger
+
     return (
     <div className="tetris-grid grid">
       {this.buildGrid()}

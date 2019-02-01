@@ -139,3 +139,9 @@ export const clearPiece = function(board, piece){ //returns new board
   })
   return newBoard; 
 }
+
+const validPos = function(){ //returns boolean
+  // check for collisions
+  // and out of bounds
+
+}

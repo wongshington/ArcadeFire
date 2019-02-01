@@ -2,18 +2,28 @@ import { movePiece, clearPiece, placePiece } from '../tetris/boardFunctions';
 
 export const MOVE = "MOVE";
 
-const moveAction = (board, piece, dir) => ({
-  type: MOVE,
-  board: pieceMover(board, piece, dir)
-})
+const moveAction = (board, piece) => {
+  return ({
+    type: MOVE,
+    board,
+    piece
+  });
+} 
 
-export const pieceMover = (board, piece, dir) => {
+export const pieceMover = (board, piece, dir) => dispatch => {
   let newPiece = movePiece(piece, dir);
   let newBoard = clearPiece(board, piece); //because this func returns a new board
   newBoard = placePiece(newBoard, newPiece);
-  return newBoard;
+  return dispatch(finalize(newBoard, newPiece));
 }
-// need some promises :)
+
+const finalize = (board, piece) => dispatch => { //will set the board and piece and send the updated versions to the reducers
+  let newBoard = placePiece(board, piece);
+  // debugger
+
+  return dispatch(moveAction(newBoard, piece));
+}
+
+// need some promises? :)
 // will make change to move piece and save in redux
 // will then repaint board and save in redux
-
