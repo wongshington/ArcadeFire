@@ -12,15 +12,15 @@ const moveAction = (board, piece) => {
 export const pieceMover = (board, piece, dir) => dispatch => {
   let newPiece = movePiece(piece, dir);
   let newBoard = clearPiece(board, piece); //because this func returns a new board
-  // debugger
-  if (atFloor(newBoard, newPiece)){
-    newPiece = spawnPiece();
-    newBoard = board
-    // lock it downs
-  } else if ( !validPos(newBoard, newPiece) ){
-    // debugger
-    newBoard = board;
-    newPiece = piece;
+  if ( !validPos(newBoard, newPiece) ){
+    if (atFloor(newBoard, piece)) {
+      newPiece = spawnPiece();
+      newBoard = board
+      // lock it downs
+    } else {
+      newBoard = board;
+      newPiece = piece;
+    }
   }
   return dispatch(finalize(newBoard, newPiece));
 }

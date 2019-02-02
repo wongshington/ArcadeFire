@@ -56,17 +56,15 @@ function buildFreshBoard(height, width){ // returns fresh new board
   return board;
 }
 
-export const atFloor = (board, piece) => {
+export const atFloor = (board, piece) => { //evaluates to true if i hit another piece from the side (BUG)
+  // can pass in the failed board attempt but old piece
   
   let bool = piecePositions(piece).some(pos => {
     let [x, y] = pos;
-    return (board[x] == undefined || board[x][y] > 0) // if any of the next lower spaces is the floor
+    return (board[x + 1] == undefined || board[x + 1][y] > 0) // if any of the next lower spaces is the floor
   })
-  let arrs = piecePositions(piece);
-  return (
-  // can pass in the failed board attempt but old piece
- bool
-)}
+  return bool
+}
 
   // just check if next move would be a lockedBoard, return bool
 
@@ -112,7 +110,7 @@ export const clearPiece = function(board, piece){ //returns new board
 
 export const validPos = function (board, piece) { //returns boolean
   let height = board.length;
-
+ // refactor to use piecePositions method
   const [x, y] = piece.pos;
   let bool = piece.shapes[piece.currShape].every(el => { //iterate over the piece's current shape coords
     let [x2, y2] = [el[0] + x, el[1] + y];
