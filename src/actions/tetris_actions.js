@@ -1,4 +1,4 @@
-import { movePiece, clearPiece, placePiece, validPos, spawnPiece, lockedBoard, atFloor } from '../tetris/boardFunctions';
+import { movePiece, clearPiece, placePiece, validPos, spawnPiece, lockedBoard, atFloor, rotatePiece, clearLines} from '../tetris/boardFunctions';
 export const MOVE = "MOVE";
 
 const moveAction = (board, piece) => {
@@ -15,15 +15,33 @@ export const pieceMover = (board, piece, dir) => dispatch => {
   if ( !validPos(newBoard, newPiece) ){
     if (atFloor(newBoard, piece)) {
       newPiece = spawnPiece();
-      newBoard = board
+      newBoard = clearLines(board);
       // lock it downs
     } else {
       newBoard = board;
       newPiece = piece;
     }
   }
+  
   return dispatch(finalize(newBoard, newPiece));
 }
+
+export const rotate = (board, piece) => dispatch => {
+  let newPiece = rotatePiece(piece);
+  let newBoard = clearPiece(board, piece);
+  if ( !validPos(newBoard, newPiece) ){ // if not valid
+    newBoard = board;
+    newPiece = piece;
+  }
+  return dispatch(finalize(newBoard, newPiece))
+}
+
+const clearScoredLines = board => dispatch => {
+  let newBoard = clearLines(board);
+  let newPiece = spawnPiece();
+  dispatch(finalize(newBoard, newPiece));
+
+};
 
 const finalize = (board, piece) => dispatch => { //will set the board and piece and send the updated versions to the reducers
   let newBoard = placePiece(board, piece);

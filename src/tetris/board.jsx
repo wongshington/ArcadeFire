@@ -3,8 +3,6 @@ import './tetris.css'
 
 import {pieces} from './pieces';
 
-import { placePiece } from './boardFunctions';
-
 class Board extends React.Component{
 
   constructor(props){
@@ -31,7 +29,7 @@ class Board extends React.Component{
       return el.map( (el, i) => {
         const color = el == 0 ? "white": pieces[el].color
         return( 
-        <div className={`${color} tet-tile`}>{el}</div> 
+        <div className={`${color} tet-tile`}></div> 
         )
     })
     })
@@ -64,6 +62,7 @@ class Board extends React.Component{
         break;
       case 38: // up
         console.log("up");
+        this.props.rotate(board, piece);
         // make action to rotate piece
         break;
       case 40: // down

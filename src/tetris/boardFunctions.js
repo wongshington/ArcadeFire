@@ -84,10 +84,12 @@ const piecePositions = function(piece){
 
 export const clearLines = function(board){ // returns new board
   const newBoard = deepDup(board);
+  let lineCount = 0;
   let i = 0;
   while (i < newBoard.length){
     let row = newBoard[i];
     if (row.every( el => el > 0)) {
+      lineCount ++;
       newBoard.splice(i, 1) //removes this one row from the board;
       const newRow = new Array(board[0].length).fill(0) //creates a new array where length == board's width and fills it with 0's
       newBoard.unshift(newRow);
@@ -95,6 +97,7 @@ export const clearLines = function(board){ // returns new board
     }
     i ++;
   }
+  console.log(lineCount); //for scoring later on
   return newBoard;
 };
 
