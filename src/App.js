@@ -3,6 +3,7 @@ import './App.css';
 
 // import BoardContainer from './memory/board_container';
 import BoardContainer from './tetris/board_container';
+import ScoreboardContainer from './tetris/scoreboard_container';
 // import Board from './tetris/board';
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
       <div className="App grid">
         {/* <BoardContainer /> */}
         <BoardContainer />
+        <ScoreboardContainer />
       </div>
     );
   }

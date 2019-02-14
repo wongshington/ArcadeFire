@@ -41,7 +41,7 @@ export const placePiece = function(board, piece){ //should return a new board
   return newBoard;
 }
 
-function buildFreshBoard(height, width){ // returns fresh new board
+export const buildFreshBoard = (height, width) => { // returns fresh new board
 
   let board = [];
   let row = [];
@@ -65,13 +65,6 @@ export const atFloor = (board, piece) => { //evaluates to true if i hit another 
   })
   return bool
 }
-
-  // just check if next move would be a lockedBoard, return bool
-
-  // maybe should clear lines first
-
-  // then dispatch action to make new current piece
-
 
 const piecePositions = function(piece){
   let positions = piece.shapes[piece.currShape].map( coord => {
@@ -97,7 +90,7 @@ export const clearLines = function(board){ // returns new board
     }
     i ++;
   }
-  console.log(lineCount); //for scoring later on
+  console.log("line count", lineCount); //for scoring later on
   return newBoard;
 };
 
@@ -132,3 +125,39 @@ export const spawnPiece = function(){ // returns new piece
   return newPiece;
 }
 
+export const hardDrop = (board, piece) => {
+  // check if piece is at bottom and if not move it down one and check again
+
+  let newPiece = deepDup(piece)
+  let dropping = true
+  let oldPiece;
+
+  while (dropping) {
+    // debugger
+    if (atFloor(board, newPiece)) {
+      return newPiece
+    } else {
+      oldPiece = newPiece
+      newPiece = movePiece(newPiece, [1, 0])
+      if (!validPos(board, newPiece)) {
+        newPiece = oldPiece;
+        dropping = false;
+      }
+    }
+  }
+  debugger
+  return newPiece
+}
+
+
+
+
+
+
+
+
+// work in progress
+// export const gameOver = (board, piece) => {
+//   // run this after spawning a new piece but before finalize with that piece
+//   return ( !validPos(board, piece) && atFloor(board, piece) ) //must be a valid pos and not at the floor
+// }

@@ -1,5 +1,5 @@
 import React from 'react';
-import './tetris.css'
+import styles from './tetris.css'
 
 import {pieces} from './pieces';
 
@@ -7,7 +7,7 @@ class Board extends React.Component{
 
   constructor(props){
     super(props);
-    this.state = {intervalId: null}
+    this.state = {intervalId: null, level: 1}
     this.handleKey = this.handleKey.bind(this);
     this.buildGrid = this.buildGrid.bind(this);
     this._tick = this._tick.bind(this);
@@ -16,14 +16,22 @@ class Board extends React.Component{
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKey)
-    let intervalId = window.setInterval(this._tick, 1000)
+    const intervalId = window.setInterval(this._tick, 1000)
     this.setState({ intervalId: intervalId})
   }
 
   componentWillUnmount() {
-    document.removeEventListener(this.state.listener);
+    document.removeEventListener("keydown", this.handleKey);
+    window.clearInterval(this.state.intervalId);
   }
- 
+  
+  changeLevel(){ //can pull this logic out into the redux store as well
+    const newLevel = this.state.level + 1;
+    window.clearInterval(this.state.intervalId);
+    const intervalId = window.setInterval(this._tick, (1000/newLevel) );
+    this.setState({intervalId: intervalId, level: newLevel})
+  }
+
   buildGrid(){
     let grid = this.props.board.map( (el, i) => {
       return el.map( (el, i) => {
@@ -31,7 +39,7 @@ class Board extends React.Component{
         return( 
         <div className={`${color} tet-tile`}></div> 
         )
-    })
+      })
     })
     return grid;
   }
@@ -73,6 +81,8 @@ class Board extends React.Component{
         break;
       case 32:
         console.log("space")
+        this.resetInterval();
+        this.props.hardDropper(board, piece);
         break;
       case 67:
         console.log("c")
@@ -89,9 +99,12 @@ class Board extends React.Component{
   render(){
 
     return (
-    <div className="tetris-grid grid">
-      {this.buildGrid()}
-    </div>
+      <div>
+        Reactris
+        <div className="tetris-grid grid">
+          {this.buildGrid()}
+        </div>
+      </div>
     )
   }
   
