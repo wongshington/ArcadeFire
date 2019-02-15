@@ -8,7 +8,8 @@ import { movePiece,
         rotatePiece, 
         clearLines,
         buildFreshBoard,
-        hardDrop
+        hardDrop,
+        rotateShifter
       } from '../tetris/boardFunctions';
 export const MOVE = "MOVE";
 
@@ -44,8 +45,9 @@ export const rotate = (board, piece) => dispatch => {
   let newPiece = rotatePiece(piece);
   let newBoard = clearPiece(board, piece);
   if ( !validPos(newBoard, newPiece) ){ // if not valid
-    newBoard = board;
-    newPiece = piece;
+    // try slightly shifting the rotations
+    // for if piece "can't rotate" because up against wall or something
+    newPiece = rotateShifter(newBoard, newPiece); 
   }
   return dispatch(finalize(newBoard, newPiece))
 }
@@ -80,3 +82,4 @@ const finalize = (board, piece) => dispatch => { //will set the board and piece 
 // need some promises? :)
 // will make change to move piece and save in redux
 // will then repaint board and save in redux
+

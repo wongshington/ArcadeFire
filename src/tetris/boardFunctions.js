@@ -18,6 +18,7 @@ const deepDup = function (item) {
 
 export const movePiece = function(piece, dir){ //returns new piece
   const newPiece = deepDup(piece);
+  // debugger
   newPiece.pos[0] += dir[0];
   newPiece.pos[1] += dir[1];
   
@@ -133,7 +134,7 @@ export const hardDrop = (board, piece) => {
   let oldPiece;
 
   while (dropping) {
-    // debugger
+
     if (atFloor(board, newPiece)) {
       return newPiece
     } else {
@@ -145,8 +146,24 @@ export const hardDrop = (board, piece) => {
       }
     }
   }
-  debugger
   return newPiece
+}
+
+
+export const rotateShifter = ( board, piece ) => {
+  // if can't rotate because "invalid pos" 
+  // should still rotate, but try out in a direction first
+  // should return a new piece, but will already be cloned before this function
+  const rotations = [[0, 1], [0, -1], [1, 0], [-1, 0], [0, -2], [0, 2]];
+
+  for (let i = 0; i < rotations.length; i++) {
+    const diff = rotations[i];
+    let newPiece = movePiece(piece, diff);
+    if ( validPos(board, newPiece) ){
+      return newPiece;
+    }
+  } //if it can't rotate it
+  return piece;
 }
 
 
