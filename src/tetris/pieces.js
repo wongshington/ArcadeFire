@@ -8,7 +8,7 @@ export const pieces = {
         [[0, 0], [0, 1], [0, 2], [0, 3]],
         [[0, 0], [1, 0], [2, 0], [3, 0]]
       ],
-      pos: [0, 4], // where it is currently? not sure if i need this
+      pos: [0, 3], // where it is currently? not sure if i need this
       current: true // only one will be true at a time
     },
   2: {
@@ -36,7 +36,7 @@ export const pieces = {
         [[0, 0], [0, 1], [1, 1], [2, 1]],
         [[2, 0], [1, 0], [1, 1], [1, 2]]
       ],
-      pos: [0, 4], 
+      pos: [0, 3], 
       current: true 
     },
   4: {
@@ -59,7 +59,7 @@ export const pieces = {
       topPos: [0, 4], 
       currShape: 0, 
       shapes: [ 
-        [[0, 0], [0, 1], [1, 1], [1, 0]],
+        [[0, 2], [0, 1], [1, 1], [1, 2]],
       ],
       pos: [0, 4], 
       current: true 

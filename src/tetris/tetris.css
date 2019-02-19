@@ -1,3 +1,8 @@
+.tetris-view{
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
 .start-button{
   align-content: center;
   border-radius: 5px;
@@ -22,6 +27,13 @@
   border: 1px solid;
 }
 
+.preview{
+  grid-template-columns: repeat(5, 1fr);
+  justify-self: center;
+  padding-right: 25px;
+  padding-bottom: 25px;
+  background-color: black;
+}
 .red{
   background-color: red;
 }
@@ -45,4 +57,7 @@
 }
 .white{ /* default color */
   background-color: lightblue;
+}
+.preview-tile{
+  background-color: black;
 }

@@ -4,6 +4,7 @@ import Scoreboard from './scoreboard.jsx';
 import { newGame } from '../actions/tetris_actions';
 const mSP = state => {
 // debugger
+let board = []
   return ({
     nextPiece: state.tetris.scoreBoard.nextPiece
   })
