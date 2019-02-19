@@ -1,4 +1,4 @@
-import { MOVE } from '../../actions/tetris_actions';
+import { UPDATE } from '../../actions/tetris_actions';
 
 const defaultState = {
   type: 3, // the L piece
@@ -18,8 +18,10 @@ const defaultState = {
 const piece = (oldState = defaultState, action) => {
   // debugger
   switch (action.type) {
-    case MOVE: // this will be replaced later
+    case UPDATE: // this will be replaced later
       return action.piece
+    // case PIECE: // this will be replaced later
+    //   return action.piece
     default:
       return oldState;
   }

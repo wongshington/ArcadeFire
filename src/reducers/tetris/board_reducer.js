@@ -1,4 +1,4 @@
-import { MOVE } from '../../actions/tetris_actions';
+import { UPDATE } from '../../actions/tetris_actions';
 
 const defaultState = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -26,8 +26,10 @@ const defaultState = [
 const board = (oldState = defaultState, action) => {
 
   switch (action.type) {
-    case MOVE: 
+    case UPDATE: 
       return action.board;
+    // case FRESH: 
+    //   return action.board;
     default:
       return oldState;
   }

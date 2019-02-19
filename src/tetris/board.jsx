@@ -12,12 +12,14 @@ class Board extends React.Component{
     this.buildGrid = this.buildGrid.bind(this);
     this._tick = this._tick.bind(this);
     this.resetInterval = this.resetInterval.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
-
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKey)
-    const intervalId = window.setInterval(this._tick, 1000)
-    this.setState({ intervalId: intervalId})
+  
+  startGame(){
+    this.props.newGame();
+    document.addEventListener("keydown", this.handleKey);
+    const intervalId = window.setInterval(this._tick, 1000);
+    this.setState({ intervalId: intervalId });
   }
 
   componentWillUnmount() {
@@ -45,6 +47,7 @@ class Board extends React.Component{
   }
 
   _tick(){
+
     this.props.pieceMover(this.props.board, this.props.piece, [1,0])
   }
 
@@ -101,6 +104,7 @@ class Board extends React.Component{
     return (
       <div>
         Reactris
+        <div className="start-button grid" onClick={this.startGame}> Start Game</div>
         <div className="tetris-grid grid">
           {this.buildGrid()}
         </div>
