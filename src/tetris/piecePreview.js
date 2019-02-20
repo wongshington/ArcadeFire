@@ -13,7 +13,7 @@ const Preview = ({piece}) => {
     }
     grid.push(row);
   }
-  if (piece.shapes) {
+  if (piece) { // if there is a piece
     piece.shapes[piece.currShape].forEach( (el, i) => {
       let [x, y] = el;
       grid[x + 2][y + 1] = (<div className={`${piece.color} tet-tile`}></div>)

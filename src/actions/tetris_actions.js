@@ -10,11 +10,13 @@ import {
   clearLines,
   buildFreshBoard,
   hardDrop,
-  rotateShifter
+  rotateShifter,
+  resetPiece
 } from '../tetris/boardFunctions';
 
 export const UPDATE = "UPDATE";
 export const FUTURE = "FUTURE";
+export const SAVE = "SAVE";
 
 
 //action creators 
@@ -33,6 +35,12 @@ const piecePreview = (piece) => {
   });
 }
 
+const savePiece = (savePiece) => {
+  return ({
+    type: SAVE, // should be update
+    savePiece
+  });
+}
 
 
 export const newGame = () => dispatch => {
@@ -59,7 +67,7 @@ export const pieceMover = (board, piece, dir) => dispatch => {
       newPiece = piece;
     }
   }
-  return dispatch(_finalize(newBoard, newPiece));
+  dispatch(_finalize(newBoard, newPiece));
 }
 
 export const rotate = (board, piece) => dispatch => {
@@ -69,7 +77,7 @@ export const rotate = (board, piece) => dispatch => {
     // for when piece "can't rotate" because up against wall or something
     newPiece = rotateShifter(newBoard, newPiece);
   }
-  return dispatch(_finalize(newBoard, newPiece))
+  dispatch(_finalize(newBoard, newPiece))
 }
 
 export const hardDropper = (board, piece) => dispatch => {
@@ -77,8 +85,26 @@ export const hardDropper = (board, piece) => dispatch => {
   let newPiece = hardDrop(newBoard, piece);
   newBoard = placePiece(newBoard, newPiece)
   dispatch(_clearScoredLines(newBoard));
-  // dispatch(_finalize(newBoard, newPiece));
+} 
+
+export const saver = () => (dispatch, getState) => {
+  let savedPiece = getState().tetris.scoreBoard.savePiece;
+  let currPiece = getState().tetris.piece;
+  let board = clearPiece(getState().tetris.board,currPiece);
+  
+  if (!savedPiece){ // if the first time saving a piece
+    savedPiece = resetPiece(currPiece);
+    currPiece = getState().tetris.scoreBoard.nextPiece;
+    dispatch(piecePreview(spawnPiece())); // generate a future piece
+  } else {
+    [savedPiece, currPiece] = [resetPiece(currPiece), resetPiece(savedPiece)]
+  }
+  // will need to lock out switching until the piece is placed so can't just switch and switch forever
+  dispatch(savePiece(savedPiece));
+  dispatch(_finalize(board, currPiece));
 }
+
+
 
 
 // helper functions
@@ -93,7 +119,7 @@ const _clearScoredLines = board => (dispatch, getState) => {
 
 const _finalize = (board, piece) => dispatch => { //will set the board and piece and send the updated versions to the reducers
   let newBoard = placePiece(board, piece);
-  return dispatch(setBoard(newBoard, piece));
+  dispatch(setBoard(newBoard, piece));
 }
 
 

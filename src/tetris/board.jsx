@@ -89,9 +89,11 @@ class Board extends React.Component{
         break;
       case 67:
         console.log("c")
+        this.props.saver();
         break;
       case 16:
         console.log("shift")
+        this.props.saver();
         break;
       default:
         break;

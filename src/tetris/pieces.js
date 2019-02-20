@@ -2,7 +2,7 @@ export const pieces = {
   1: {
       type: 1, // the line piece
       color: "red",
-      topPos: [0, 4], //might just need one pos key
+      topPos: [0, 3], //might just need one pos key
       currShape: 0, //need to keep track of current shape?
       shapes: [ //long piece
         [[0, 0], [0, 1], [0, 2], [0, 3]],
@@ -28,7 +28,7 @@ export const pieces = {
   3: {
       type: 3, // the L piece
       color: "green",
-      topPos: [0, 4], 
+      topPos: [0, 3], 
       currShape: 1, 
       shapes: [ 
         [[0, 0], [1, 0], [2, 0], [2, 1]],
@@ -56,12 +56,12 @@ export const pieces = {
   5: {
       type: 5, // square piece
       color: "pink",
-      topPos: [0, 4], 
+      topPos: [0, 3], 
       currShape: 0, 
       shapes: [ 
         [[0, 2], [0, 1], [1, 1], [1, 2]],
       ],
-      pos: [0, 4], 
+      pos: [0, 3], 
       current: true 
     },
   6: {

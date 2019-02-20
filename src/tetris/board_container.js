@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 
 import Board from "./board";
-import { pieceMover, rotate, hardDropper, newGame} from '../actions/tetris_actions';
+import { pieceMover, rotate, hardDropper, newGame, saver} from '../actions/tetris_actions';
 
 const mSP = ({tetris: {board, piece}}) => {
   
@@ -16,6 +16,7 @@ const mDP = (dispatch, state) => {
   pieceMover: (board, piece, dir) => dispatch(pieceMover(board, piece, dir)),
   rotate: (board, piece) => dispatch(rotate(board, piece)),
   newGame: () => dispatch(newGame()),
+  saver: () => dispatch(saver()),
   hardDropper: (board, piece) => dispatch(hardDropper(board, piece))
 })
 }

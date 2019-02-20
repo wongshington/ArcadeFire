@@ -12,6 +12,13 @@ const _deepDup = function (item) {
   return newItem
 }
 
+export const resetPiece = (piece) => {
+  const newPiece = _deepDup(piece);
+  // newPiece.pos = newPiece.topPos; // originally thought of doing this
+  newPiece.pos = [newPiece.topPos[0] + 2, newPiece.topPos[1]]; // push it down just a lil bit
+  return newPiece
+}
+
 export const movePiece = function (piece, dir) { //returns new piece
   const newPiece = _deepDup(piece);
   newPiece.pos[0] += dir[0];

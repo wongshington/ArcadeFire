@@ -8,21 +8,10 @@ class Scoreboard extends React.Component{
 
   }
 
-  // buildGrid() {
-  //   let grid = this.props.board.map((el, i) => {
-  //     return el.map((el, i) => {
-  //       const color = el == 0 ? "white" : pieces[el].color
-  //       return (
-  //         <div className={`${color} tet-tile`}></div>
-  //       )
-  //     })
-  //   })
-  //   return grid;
-  // }
   startGame() {
     this.props.newGame();
   }
-
+ 
   render(){
     const piece = this.props.nextPiece;
     return (
@@ -37,3 +26,5 @@ class Scoreboard extends React.Component{
 }
 
 export default Scoreboard;
+
+ 

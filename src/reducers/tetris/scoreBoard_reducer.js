@@ -1,7 +1,8 @@
-import { FUTURE } from '../../actions/tetris_actions';
+import { FUTURE, SAVE } from '../../actions/tetris_actions';
 
 const defaultState = {
-  nextPiece: {},
+  nextPiece: null,
+  savePiece: null,
   score: 0
 }
 
@@ -12,6 +13,10 @@ const scoreBoard = (oldState = defaultState, action) => {
     case FUTURE:
       newState = Object.assign({}, oldState);
       newState.nextPiece = action.piece;
+      return newState;
+    case SAVE:
+      newState = Object.assign({}, oldState);
+      newState.savePiece = action.savePiece;
       return newState;
     default:
       return oldState;
