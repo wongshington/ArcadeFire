@@ -12,6 +12,9 @@ export default store;
 
 const Root = () => {
 
+  window.store = store;
+  window.dispatch = store.dispatch;
+  
   return (
     <Provider store={store}>
       <App />

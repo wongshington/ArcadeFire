@@ -2,6 +2,7 @@ import {
   movePiece,
   clearPiece,
   gameOver,
+  countLines,
   placePiece,
   validPos,
   spawnPiece,
@@ -17,9 +18,14 @@ import {
 export const UPDATE = "UPDATE";
 export const FUTURE = "FUTURE";
 export const SAVE = "SAVE";
+export const SCORE = "SCORE";
+export const GAME_OVER = "GAME_OVER";
+export const NEW_GAME = "NEW_GAME";
+export const RESET_INTERVAL = "RESET_INTERVAL";
+// export const META = "META";
 
 
-//action creators 
+//data action creators 
 const setBoard = (board, piece) => {
   return ({
     type: UPDATE, // should be update
@@ -42,25 +48,49 @@ const savePiece = (savePiece) => {
   });
 }
 
+const scoreAction = (score) => {
+  return ({
+    type: SCORE,
+    score
+  });
+}
+
+
+// messenger action creators
+const endGame = () => {
+  return ({
+    type: GAME_OVER
+  });
+}
+
+const startGame = () => {
+  return ({
+    type: NEW_GAME
+  });
+}
+
+const resetInterval = () => {
+  return ({
+    type: RESET_INTERVAL
+  });
+}
+
+
 
 export const newGame = () => dispatch => {
   const newPiece = spawnPiece();
   dispatch(piecePreview(spawnPiece()));
   const newBoard = buildFreshBoard();
   dispatch(_finalize(newBoard, newPiece));
+  dispatch(startGame());
 }
-
+ 
 export const pieceMover = (board, piece, dir) => dispatch => {
   let newPiece = movePiece(piece, dir);
   let newBoard = clearPiece(board, piece); //because this func returns a new board
 
   if (!validPos(newBoard, newPiece)) { //if not valid
     if (atFloor(newBoard, piece)) { // if not valid because the original piece is at bottom
-      // if (gameOver(newBoard, newPiece)) {
-      //   alert("this is the end")
-      //   // newBoard = buildFreshBoard(20, `10);
-      // }
-      // lock it downs
       return dispatch(_clearScoredLines(board))
     } else {
       newBoard = board;
@@ -81,6 +111,7 @@ export const rotate = (board, piece) => dispatch => {
 }
 
 export const hardDropper = (board, piece) => dispatch => {
+  dispatch(resetInterval());
   let newBoard = clearPiece(board, piece);
   let newPiece = hardDrop(newBoard, piece);
   newBoard = placePiece(newBoard, newPiece)
@@ -103,12 +134,12 @@ export const saver = () => (dispatch, getState) => {
   dispatch(savePiece(savedPiece));
   dispatch(_finalize(board, currPiece));
 }
-
-
-
+ 
 
 // helper functions
 const _clearScoredLines = board => (dispatch, getState) => {
+  let score = countLines(board);
+  dispatch(scoreAction(score))
   let newBoard = clearLines(board);
   let newPiece = getState().tetris.scoreBoard.nextPiece;
   dispatch(piecePreview(spawnPiece()));
@@ -118,8 +149,13 @@ const _clearScoredLines = board => (dispatch, getState) => {
 };
 
 const _finalize = (board, piece) => dispatch => { //will set the board and piece and send the updated versions to the reducers
-  let newBoard = placePiece(board, piece);
-  dispatch(setBoard(newBoard, piece));
+  // put gameOver here?
+  if ( gameOver(board, piece) ){
+    dispatch( endGame() );
+  } else {
+    let newBoard = placePiece(board, piece);
+    dispatch(setBoard(newBoard, piece));
+  }
 }
 
 

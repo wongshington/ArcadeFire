@@ -1,7 +1,4 @@
 
-// board will be stored in redux
-// current piece object will be stored in redux
-// dir has been sent to function from keydown
 // dir == [1,0] // move down one row
 
 import { pieces } from './pieces';
@@ -15,6 +12,7 @@ const _deepDup = function (item) {
 export const resetPiece = (piece) => {
   const newPiece = _deepDup(piece);
   // newPiece.pos = newPiece.topPos; // originally thought of doing this
+  newPiece.currShape = 0;
   newPiece.pos = [newPiece.topPos[0] + 2, newPiece.topPos[1]]; // push it down just a lil bit
   return newPiece
 }
@@ -61,30 +59,39 @@ export const buildFreshBoard = () => { // returns fresh new board
 export const atFloor = (board, piece) => { //evaluates to true if i hit another piece from the side (BUG)
   // can pass in the failed board attempt but old piece
 
-  let bool = piecePositions(piece).some(pos => {
+  let bool = _piecePositions(piece).some(pos => {
     let [x, y] = pos;
     return (board[x + 1] == undefined || board[x + 1][y] > 0) // if any of the next lower spaces is the floor
   })
   return bool
 }
 
-const piecePositions = function (piece) {
+const _piecePositions = function (piece) {
   let positions = piece.shapes[piece.currShape].map(coord => {
     let x = coord[0] + piece.pos[0]
     let y = coord[1] + piece.pos[1]
     return [x, y]
   })
   return positions
+} 
+
+export const countLines = board => {
+  let lineCount = 0;
+  board.forEach( row => {
+    if (row.every(el => el > 0)) {
+      lineCount ++;
+    }
+  })
+  const score = _scoreFunc(lineCount);
+  return score;
 }
 
 export const clearLines = function (board) { // returns new board
   const newBoard = _deepDup(board);
-  let lineCount = 0;
   let i = 0;
   while (i < newBoard.length) {
     let row = newBoard[i];
     if (row.every(el => el > 0)) {
-      lineCount++;
       newBoard.splice(i, 1) //removes this one row from the board;
       const newRow = new Array(board[0].length).fill(0) //creates a new array where length == board's width and fills it with 0's
       newBoard.unshift(newRow);
@@ -92,8 +99,6 @@ export const clearLines = function (board) { // returns new board
     }
     i++;
   }
-  const score = scoreFunc(lineCount);
-  console.log("score", score); //for scoring later on
   return newBoard;
 };
 
@@ -109,7 +114,7 @@ export const clearPiece = function (board, piece) { //returns new board
 
 export const validPos = function (board, piece) { //returns boolean
   let height = board.length;
-  // refactor to use piecePositions method
+  // refactor to use _piecePositions method
   const [x, y] = piece.pos;
   let bool = piece.shapes[piece.currShape].every(el => { //iterate over the piece's current shape coords
     let [x2, y2] = [el[0] + x, el[1] + y];
@@ -151,6 +156,7 @@ export const hardDrop = (board, piece) => {
   return newPiece
 }
 
+
 export const rotateShifter = (board, piece) => {
   // if can't rotate because "invalid pos" 
   // should still rotate, but try out in a direction first
@@ -175,8 +181,29 @@ export const rotateShifter = (board, piece) => {
 //   return ( !validPos(board, piece) && atFloor(board, piece) ) //must be a valid pos and not at the floor
 // }
 
-const scoreFunc = (lines) => {
-  let score = 100 * lines;
+const _scoreFunc = (lines) => {
+  switch (lines) {
+    case 1:
+        return 40;
+    case 2:
+        return 100;
+    case 3:
+        return 300;
+    case 4:
+        return 1200;
+    default:
+      return 0;
+  }
+}
 
-  return score
+export const gameOver = (board, piece) => {
+  //already know next piece wasn't valid
+  // also know atFloor
+  
+  if (!validPos(board, piece)){
+    console.log("game over fam")
+    return true
+  }
+  return false
+
 }

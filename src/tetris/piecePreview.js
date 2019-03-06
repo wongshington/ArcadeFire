@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Preview = ({piece}) => {
+const Preview = ({piece, text}) => {
   
   // need to build grid, then place piece on that grid
   let grid = [];
@@ -9,20 +9,23 @@ const Preview = ({piece}) => {
     let row = [];
     for (let j = 0; j < 5; j++) {
       let color = "white"; // for now 
-      row.push(<div className={`${color} tet-tile preview-tile`}></div>);
+      row.push(<div key={"white" + i + j} className={`${color} tet-tile preview-tile`}></div>);
     }
     grid.push(row);
   }
   if (piece) { // if there is a piece
     piece.shapes[piece.currShape].forEach( (el, i) => {
       let [x, y] = el;
-      grid[x + 2][y + 1] = (<div className={`${piece.color} tet-tile`}></div>)
+      grid[x + 2][y + 1] = (<div key={piece.color + i} className={`${piece.color} tet-tile`}></div>)
     }) 
   }
+
 return ( 
-    <div className="preview grid">
-      {grid}
-    </div>
+
+      <div className="preview grid">
+        {grid}
+      </div>
+
   );
 };
 

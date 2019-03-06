@@ -24,7 +24,7 @@ class Board extends React.Component{
 
   componentWillUnmount() {
     document.removeEventListener("keydown", this.handleKey);
-    window.clearInterval(this.state.intervalId);
+    // window.clearInterval(this.state.intervalId);
   }
   
   changeLevel(){ //can pull this logic out into the redux store as well
@@ -39,7 +39,7 @@ class Board extends React.Component{
       return el.map( (el, i) => {
         const color = el == 0 ? "white": pieces[el].color
         return( 
-        <div className={`${color} tet-tile`}></div> 
+        <div key={color + i} className={`${color} tet-tile`}></div> 
         )
       })
     })
@@ -47,7 +47,6 @@ class Board extends React.Component{
   }
 
   _tick(){
-
     this.props.pieceMover(this.props.board, this.props.piece, [1,0])
   }
 
@@ -79,6 +78,7 @@ class Board extends React.Component{
       case 40: // down
         console.log("down");
         this.resetInterval();
+        // how to account for this being different than the interval down
         this.props.pieceMover(board, piece, [1, 0])
         // make action to change position down
         break;
@@ -98,7 +98,6 @@ class Board extends React.Component{
       default:
         break;
     }
-    // this.setState({board: newBoard})
   }
 
   render(){

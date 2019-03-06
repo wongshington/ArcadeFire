@@ -15,10 +15,10 @@ export const pieces = {
       type: 2, // the T piece
       color: "blue",
       topPos: [0, 4], 
-      currShape: 1, 
+      currShape: 0, 
       shapes: [ 
-        [[0, 0], [1, 0], [2, 0], [1, 1]],
         [[1, 0], [1, 1], [1, 2], [0, 1]],
+        [[0, 0], [1, 0], [2, 0], [1, 1]],
         [[1, 0], [1, 1], [0, 1], [2, 1]],
         [[1, 0], [1, 1], [1, 2], [2, 1]]
       ],
@@ -29,10 +29,10 @@ export const pieces = {
       type: 3, // the L piece
       color: "green",
       topPos: [0, 3], 
-      currShape: 1, 
+      currShape: 0, 
       shapes: [ 
-        [[0, 0], [1, 0], [2, 0], [2, 1]],
         [[1, 0], [1, 1], [1, 2], [0, 2]],
+        [[0, 0], [1, 0], [2, 0], [2, 1]],
         [[0, 0], [0, 1], [1, 1], [2, 1]],
         [[2, 0], [1, 0], [1, 1], [1, 2]]
       ],
@@ -43,12 +43,12 @@ export const pieces = {
       type: 4, // the reverse L piece or J piece
       color: "yellow",
       topPos: [0, 4], 
-      currShape: 3, 
+      currShape: 0, 
       shapes: [ 
+        [[0, 0], [1, 0], [1, 1], [1, 2]],
         [[0, 1], [1, 1], [2, 1], [2, 0]],
         [[1, 0], [1, 1], [1, 2], [2, 2]],
         [[0, 1], [1, 1], [2, 1], [0, 2]],
-        [[0, 0], [1, 0], [1, 1], [1, 2]]
       ],
       pos: [0, 4], 
       current: true 
@@ -79,7 +79,7 @@ export const pieces = {
   7: {
       type: 7, // Z piece
       color: "purple",
-      topPos: [0, 4], 
+      topPos: [0, 4],
       currShape: 0, 
       shapes: [ 
         [[0, 0], [0, 1], [1, 1], [1, 2]],
