@@ -1,0 +1,5 @@
+.eslintcache
+/node_modules
+
+# project specific notes here
+/secrets
