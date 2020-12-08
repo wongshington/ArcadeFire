@@ -4,6 +4,7 @@ import "./App.css";
 
 import Tetris from "./tetris/tetris";
 import Memory from "./memory/board";
+import Gallery from "./gallery/main";
 import Background from "./background/background";
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
 				<Router>
 					<Route path="/tetris" component={Tetris} />
 					<Route path="/memory" component={Memory} />
+					<Route path="/" component={Gallery} />
 				</Router>
 				<Background height={500} width={500} />
 			</div>

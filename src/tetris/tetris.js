@@ -5,7 +5,7 @@ import SavedPieceContainer from "./savedPiece_container";
 
 const Tetris = () => {
 	return (
-		<div className="game-view">
+		<div className="main-view">
 			<div className="grid tetris-view">
 				<SavedPieceContainer />
 				<BoardContainer />

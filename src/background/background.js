@@ -16,7 +16,7 @@ const Background = (props) => {
 				x: Math.random() * w,
 				y: Math.random() * h,
 				speedX: random(-0.15, 0.15),
-				speedY: Math.abs(random(0.003, 0.004)),
+				speedY: Math.abs(random(0.2, 0.25)),
 			});
 		}
 	}
@@ -25,14 +25,15 @@ const Background = (props) => {
 		ctx.font = "5px Times New Roman";
 		for (let i = 0; i < eleArray.length; i++) {
 			let el = eleArray[i];
+			// seasonal effect
 			ctx.fillText("❄️", el.x, el.y);
 		}
 	}
 
 	function moveElements(w, h) {
 		for (let i = 0; i < eleArray.length; i++) {
-			eleArray[i].x += eleArray[i].speedX;
-			eleArray[i].y += eleArray[i].speedY;
+			eleArray[i].x += eleArray[i].speedX / 2;
+			eleArray[i].y += eleArray[i].speedY / 2;
 
 			if (eleArray[i].y > h) {
 				eleArray[i].x = Math.random() * w;
@@ -44,7 +45,7 @@ const Background = (props) => {
 	const canvasRef = React.useRef(null);
 
 	const draw = (ctx) => {
-		ctx.fillStyle = "#000000";
+		ctx.fillStyle = "#1A2238";
 		ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 		drawElements(ctx);
 	};
@@ -72,6 +73,7 @@ const Background = (props) => {
 			window.cancelAnimationFrame(animationFrameId);
 		};
 	}, [draw]);
+
 	return (
 		<div style={{ textAlign: "center" }}>
 			<canvas

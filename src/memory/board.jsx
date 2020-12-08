@@ -29,7 +29,7 @@ class Board extends React.Component{
 
     // })
     return (
-			<div className="game-view">
+			<div className="main-view">
 				<div className="board grid">{this.buildBoard()}</div>
 			</div>
 		);

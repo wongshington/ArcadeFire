@@ -1,0 +1,18 @@
+
+.game-list{
+  width: 80vw;
+  height: 80vh;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  background-color: #FF6A3D;
+
+}
+
+.gallery-tile{
+  border: 1px dashed black;
+  border-radius: 7px;
+  background-color: white;
+  margin: 10px;
+
+}
