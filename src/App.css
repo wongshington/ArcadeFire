@@ -2,8 +2,10 @@
   text-align: center;
   justify-content: center;
 }
+
 .game-view{
   background-color: white;
+  border-radius: 8px;
   margin: 20px;
   padding: 20px;
   position: relative;

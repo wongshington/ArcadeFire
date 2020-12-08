@@ -1,0 +1,28 @@
+.header {
+ width: 90vw;
+ justify-content: space-between;
+ align-items: center;
+ font-size: 18px;
+ position: relative;
+ z-index: 2;
+ background-color: #FF6A3D;
+ margin: 10px auto;
+ border-radius: 3px;
+   
+}
+
+.header > *{
+  color: black; /* no default visited link coloration */
+  text-decoration: none ;
+  padding: 10px;
+  margin: 20px;
+  background-color: #9DAAF2;
+  border-radius: 3px;
+  
+  
+}
+.header > h1{
+  font-size: 30px;
+  background-color: transparent;
+
+}

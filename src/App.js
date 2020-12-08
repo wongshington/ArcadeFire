@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
 
+import Header from "./header/header";
 import Tetris from "./tetris/tetris";
 import Memory from "./memory/board";
 import Background from "./background/background";
@@ -11,6 +12,7 @@ class App extends Component {
 		return (
 			<div className="App grid">
 				<Router>
+					<Header />
 					<Route path="/tetris" component={Tetris} />
 					<Route path="/memory" component={Memory} />
 				</Router>
