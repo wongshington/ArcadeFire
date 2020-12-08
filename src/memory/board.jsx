@@ -28,11 +28,11 @@ class Board extends React.Component{
     // let board = this.state.board.map( (el, i) => {
 
     // })
-    return(
-      <div className="board grid">
-      {this.buildBoard()}
-      </div>
-    )
+    return (
+			<div className="game-view">
+				<div className="board grid">{this.buildBoard()}</div>
+			</div>
+		);
   }
 }
 

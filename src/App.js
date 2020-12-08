@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./App.css";
 
 import Tetris from "./tetris/tetris";
+import Memory from "./memory/board";
 import Background from "./background/background";
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
 			<div className="App grid">
 				<Router>
 					<Route path="/tetris" component={Tetris} />
+					<Route path="/memory" component={Memory} />
 				</Router>
 				<Background height={500} width={500} />
 			</div>

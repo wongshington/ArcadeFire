@@ -3,10 +3,8 @@
   align-items: center;
   min-width: 600px;
   position: relative;
-  z-index: 1;
-  background-color: white;
-  margin: 20px;
-  padding: 20px;
+  /* z-index: 1; */
+  /* background-color: white; */
 }
 
 .start-button{

@@ -2,6 +2,13 @@
   text-align: center;
   justify-content: center;
 }
+.game-view{
+  background-color: white;
+  margin: 20px;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
 
 .grid{
   display: grid;
